@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { api } from "@/db/api";
+import { supabase } from "@/db/supabase";
 import type { Profile, ActiveUser } from "@/types/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,16 +8,30 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Users, UserCheck, RefreshCw } from "lucide-react";
+import { Users, UserCheck, RefreshCw, Trash2, AlertTriangle } from "lucide-react";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState<Profile[]>([]);
   const [activeUsers, setActiveUsers] = useState<ActiveUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [updatingUser, setUpdatingUser] = useState<string | null>(null);
+  const [deletingAll, setDeletingAll] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const loadUsers = async () => {
     try {
@@ -66,6 +81,34 @@ export default function AdminUsers() {
     }
   };
 
+  const handleDeleteAllUsers = async () => {
+    setDeletingAll(true);
+    try {
+      const result = await api.deleteAllUsers();
+      
+      toast({
+        title: "Success",
+        description: `${result.deleted_count} users deleted successfully. You will be logged out.`,
+      });
+
+      // Sign out current user
+      await supabase.auth.signOut();
+      
+      // Redirect to login page
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+      
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to delete users",
+        variant: "destructive"
+      });
+      setDeletingAll(false);
+    }
+  };
+
   const getRoleBadge = (role: string) => {
     switch (role) {
       case 'staff':
@@ -97,10 +140,58 @@ export default function AdminUsers() {
             Manage user roles and permissions
           </p>
         </div>
-        <Button onClick={loadUsers} variant="outline" size="sm">
-          <RefreshCw className="h-4 w-4 mr-2" />
-          Refresh
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={loadUsers} variant="outline" size="sm">
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Refresh
+          </Button>
+          
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" size="sm" disabled={deletingAll || users.length === 0}>
+                <Trash2 className="h-4 w-4 mr-2" />
+                Delete All Users
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle className="flex items-center gap-2 text-destructive">
+                  <AlertTriangle className="h-5 w-5" />
+                  Delete All Users?
+                </AlertDialogTitle>
+                <AlertDialogDescription className="space-y-3">
+                  <p className="font-semibold text-foreground">
+                    ⚠️ This action cannot be undone!
+                  </p>
+                  <p>
+                    This will permanently delete <strong>all {users.length} users</strong> from the system, including:
+                  </p>
+                  <ul className="list-disc list-inside space-y-1 text-sm">
+                    <li>All user accounts and profiles</li>
+                    <li>All authentication data</li>
+                    <li>All user sessions</li>
+                  </ul>
+                  <p className="text-destructive font-semibold">
+                    You will be logged out immediately after deletion.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    The next user to register will become the new staff (admin).
+                  </p>
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={deletingAll}>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={handleDeleteAllUsers}
+                  disabled={deletingAll}
+                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                >
+                  {deletingAll ? "Deleting..." : "Yes, Delete All Users"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </div>
 
       {/* Active Users Alert */}

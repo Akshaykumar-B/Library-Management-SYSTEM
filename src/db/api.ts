@@ -46,6 +46,13 @@ export const api = {
     if (error) throw error;
   },
 
+  async deleteAllUsers(): Promise<{ deleted_count: number; message: string }> {
+    const { data, error } = await supabase.rpc("delete_all_users");
+    
+    if (error) throw error;
+    return data;
+  },
+
   async getAllBooks(): Promise<Book[]> {
     const { data, error } = await supabase
       .from("books")
