@@ -13,6 +13,8 @@ export interface Book {
   title: string;
   author: string;
   stock: number;
+  content?: string;
+  cover_image?: string;
   created_at: string;
   updated_at: string;
 }

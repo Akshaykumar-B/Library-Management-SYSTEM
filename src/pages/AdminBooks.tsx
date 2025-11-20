@@ -4,6 +4,7 @@ import type { Book } from "@/types/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -19,7 +20,8 @@ export default function AdminBooks() {
     book_id: "",
     title: "",
     author: "",
-    stock: 0
+    stock: 0,
+    content: ""
   });
   const { toast } = useToast();
 
@@ -50,7 +52,8 @@ export default function AdminBooks() {
         book_id: book.book_id,
         title: book.title,
         author: book.author,
-        stock: book.stock
+        stock: book.stock,
+        content: book.content || ""
       });
     } else {
       setEditingBook(null);
@@ -58,7 +61,8 @@ export default function AdminBooks() {
         book_id: "",
         title: "",
         author: "",
-        stock: 0
+        stock: 0,
+        content: ""
       });
     }
     setDialogOpen(true);
@@ -177,6 +181,20 @@ export default function AdminBooks() {
                     onChange={(e) => setFormData({ ...formData, stock: parseInt(e.target.value) || 0 })}
                     required
                   />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="content">Book Content</Label>
+                  <Textarea
+                    id="content"
+                    value={formData.content}
+                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                    placeholder="Enter the book content that users can read..."
+                    rows={6}
+                    className="resize-none"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    This content will be displayed when users read the book
+                  </p>
                 </div>
               </div>
               <DialogFooter>

@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 import { api } from "@/db/api";
-import type { BorrowedBook } from "@/types/types";
+import type { BorrowedBook, Book } from "@/types/types";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { BookOpen, Calendar } from "lucide-react";
+import { BookOpen, Calendar, BookOpenCheck } from "lucide-react";
 import { format } from "date-fns";
+import BookReader from "@/components/BookReader";
 
 export default function MyBorrows() {
   const [borrowedBooks, setBorrowedBooks] = useState<BorrowedBook[]>([]);
   const [loading, setLoading] = useState(true);
   const [returningBook, setReturningBook] = useState<string | null>(null);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [readerOpen, setReaderOpen] = useState(false);
   const { user, profile } = useAuth();
   const { toast } = useToast();
 
@@ -65,6 +68,11 @@ export default function MyBorrows() {
     } finally {
       setReturningBook(null);
     }
+  };
+
+  const handleReadBook = (book: Book) => {
+    setSelectedBook(book);
+    setReaderOpen(true);
   };
 
   const getRoleLimit = () => {
@@ -141,20 +149,34 @@ export default function MyBorrows() {
                   </div>
                 </div>
               </CardContent>
-              <CardFooter>
+              <CardFooter className="flex gap-2">
+                <Button
+                  onClick={() => handleReadBook(book)}
+                  className="flex-1"
+                  variant="default"
+                >
+                  <BookOpenCheck className="h-4 w-4 mr-2" />
+                  Read Book
+                </Button>
                 <Button
                   onClick={() => handleReturn(book.id)}
                   disabled={returningBook === book.id}
-                  className="w-full"
+                  className="flex-1"
                   variant="secondary"
                 >
-                  {returningBook === book.id ? "Returning..." : "Return Book"}
+                  {returningBook === book.id ? "Returning..." : "Return"}
                 </Button>
               </CardFooter>
             </Card>
           ))}
         </div>
       )}
+
+      <BookReader 
+        book={selectedBook}
+        open={readerOpen}
+        onOpenChange={setReaderOpen}
+      />
     </div>
   );
 }
