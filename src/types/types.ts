@@ -5,6 +5,14 @@ export interface Profile {
   username: string;
   role: UserRole;
   created_at: string;
+  last_login_at?: string;
+}
+
+export interface ActiveUser {
+  id: string;
+  username: string;
+  role: UserRole;
+  last_login_at: string;
 }
 
 export interface Book {

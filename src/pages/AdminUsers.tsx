@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import { api } from "@/db/api";
-import type { Profile } from "@/types/types";
+import type { Profile, ActiveUser } from "@/types/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import { Users } from "lucide-react";
+import { Users, UserCheck, RefreshCw } from "lucide-react";
 import { format } from "date-fns";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState<Profile[]>([]);
+  const [activeUsers, setActiveUsers] = useState<ActiveUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [updatingUser, setUpdatingUser] = useState<string | null>(null);
   const { toast } = useToast();
@@ -19,8 +21,12 @@ export default function AdminUsers() {
   const loadUsers = async () => {
     try {
       setLoading(true);
-      const data = await api.getAllProfiles();
-      setUsers(data);
+      const [allUsers, active] = await Promise.all([
+        api.getAllProfiles(),
+        api.getActiveUsers()
+      ]);
+      setUsers(allUsers);
+      setActiveUsers(active);
     } catch (error) {
       toast({
         title: "Error",
@@ -34,6 +40,10 @@ export default function AdminUsers() {
 
   useEffect(() => {
     loadUsers();
+    
+    // Auto-refresh every 30 seconds
+    const interval = setInterval(loadUsers, 30000);
+    return () => clearInterval(interval);
   }, []);
 
   const handleRoleChange = async (userId: string, newRole: string) => {
@@ -80,11 +90,72 @@ export default function AdminUsers() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">User Management</h1>
-        <p className="text-muted-foreground mt-1">
-          Manage user roles and permissions
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">User Management</h1>
+          <p className="text-muted-foreground mt-1">
+            Manage user roles and permissions
+          </p>
+        </div>
+        <Button onClick={loadUsers} variant="outline" size="sm">
+          <RefreshCw className="h-4 w-4 mr-2" />
+          Refresh
+        </Button>
+      </div>
+
+      {/* Active Users Alert */}
+      <Alert>
+        <UserCheck className="h-4 w-4" />
+        <AlertTitle className="flex items-center gap-2">
+          Active Users (Logged in within last 30 minutes)
+          <Badge variant="default">{activeUsers.length}</Badge>
+        </AlertTitle>
+        <AlertDescription>
+          {activeUsers.length === 0 ? (
+            <p className="text-sm text-muted-foreground">No users currently active</p>
+          ) : (
+            <div className="mt-2 space-y-2">
+              <div className="flex flex-wrap gap-2">
+                {activeUsers.map((user) => (
+                  <Badge key={user.id} variant="secondary" className="text-sm">
+                    {user.username} ({user.role})
+                  </Badge>
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                Last updated: {format(new Date(), 'HH:mm:ss')}
+              </p>
+            </div>
+          )}
+        </AlertDescription>
+      </Alert>
+
+      {/* Statistics Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card>
+          <CardHeader className="pb-3">
+            <CardDescription>Total Users</CardDescription>
+            <CardTitle className="text-3xl">{users.length}</CardTitle>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader className="pb-3">
+            <CardDescription>Active Now</CardDescription>
+            <CardTitle className="text-3xl text-green-600">{activeUsers.length}</CardTitle>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader className="pb-3">
+            <CardDescription>Staff Members</CardDescription>
+            <CardTitle className="text-3xl">{users.filter(u => u.role === 'staff').length}</CardTitle>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader className="pb-3">
+            <CardDescription>Students</CardDescription>
+            <CardTitle className="text-3xl">{users.filter(u => u.role === 'student').length}</CardTitle>
+          </CardHeader>
+        </Card>
       </div>
 
       {loading ? (
@@ -101,7 +172,7 @@ export default function AdminUsers() {
           <CardHeader>
             <CardTitle>All Users</CardTitle>
             <CardDescription>
-              Total: {users.length} users
+              Manage roles and view user information
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -112,39 +183,61 @@ export default function AdminUsers() {
                     <TableHead>Username</TableHead>
                     <TableHead>Current Role</TableHead>
                     <TableHead>Borrow Limit</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Last Login</TableHead>
                     <TableHead>Joined Date</TableHead>
                     <TableHead className="text-right">Change Role</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {users.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="font-medium">{user.username}</TableCell>
-                      <TableCell>{getRoleBadge(user.role)}</TableCell>
-                      <TableCell className="text-muted-foreground">
-                        {getRoleLimit(user.role)} books
-                      </TableCell>
-                      <TableCell className="text-muted-foreground">
-                        {format(new Date(user.created_at), "MMM dd, yyyy")}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Select
-                          value={user.role}
-                          onValueChange={(value) => handleRoleChange(user.id, value)}
-                          disabled={updatingUser === user.id}
-                        >
-                          <SelectTrigger className="w-32">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="student">Student</SelectItem>
-                            <SelectItem value="teacher">Teacher</SelectItem>
-                            <SelectItem value="staff">Staff</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {users.map((user) => {
+                    const isActive = activeUsers.some(au => au.id === user.id);
+                    return (
+                      <TableRow key={user.id}>
+                        <TableCell className="font-medium">{user.username}</TableCell>
+                        <TableCell>{getRoleBadge(user.role)}</TableCell>
+                        <TableCell className="text-muted-foreground">
+                          {getRoleLimit(user.role)} books
+                        </TableCell>
+                        <TableCell>
+                          {isActive ? (
+                            <Badge variant="default" className="bg-green-600">
+                              Online
+                            </Badge>
+                          ) : (
+                            <Badge variant="outline" className="text-muted-foreground">
+                              Offline
+                            </Badge>
+                          )}
+                        </TableCell>
+                        <TableCell className="text-muted-foreground">
+                          {user.last_login_at 
+                            ? format(new Date(user.last_login_at), "MMM dd, HH:mm")
+                            : "Never"
+                          }
+                        </TableCell>
+                        <TableCell className="text-muted-foreground">
+                          {format(new Date(user.created_at), "MMM dd, yyyy")}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Select
+                            value={user.role}
+                            onValueChange={(value) => handleRoleChange(user.id, value)}
+                            disabled={updatingUser === user.id}
+                          >
+                            <SelectTrigger className="w-32">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="student">Student</SelectItem>
+                              <SelectItem value="teacher">Teacher</SelectItem>
+                              <SelectItem value="staff">Staff</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </div>

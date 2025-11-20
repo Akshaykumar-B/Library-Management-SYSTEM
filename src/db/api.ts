@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import type { Profile, Book, Transaction, TransactionWithDetails, BorrowedBook } from "@/types/types";
+import type { Profile, Book, Transaction, TransactionWithDetails, BorrowedBook, ActiveUser } from "@/types/types";
 
 export const api = {
   async getCurrentUser() {
@@ -23,6 +23,15 @@ export const api = {
       .from("profiles")
       .select("*")
       .order("created_at", { ascending: true });
+    
+    if (error) throw error;
+    return Array.isArray(data) ? data : [];
+  },
+
+  async getActiveUsers(): Promise<ActiveUser[]> {
+    const { data, error } = await supabase
+      .from("active_users")
+      .select("*");
     
     if (error) throw error;
     return Array.isArray(data) ? data : [];
