@@ -153,7 +153,10 @@ export const api = {
     
     const borrowedBooks: Map<string, BorrowedBook> = new Map();
     
-    for (const transaction of transactions) {
+    // Process transactions from oldest to newest to get current state
+    const reversedTransactions = [...transactions].reverse();
+    
+    for (const transaction of reversedTransactions) {
       if (!transaction.book) continue;
       
       const bookId = transaction.book.id;
