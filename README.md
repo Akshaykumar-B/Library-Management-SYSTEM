@@ -1,96 +1,118 @@
-# Welcome to Your Miaoda Project
-Miaoda Application Link URL
-    URL:https://medo.dev/projects/app-7ojboc8rchs1
+<p align="center">
+  <img src="https://img.shields.io/badge/Miaoda-Project-purple?style=for-the-badge&logo=react" />
+</p>
 
-# Welcome to Your Miaoda Project
+<h1 align="center">🌈✨ Welcome to Your <span style="color:#9b59b6">Miaoda Project</span> ✨🌈</h1>
 
-## Project Info
+<p align="center">
+  <b>Modern • Fast • Beautiful • Powered by Vite + React + TypeScript + Supabase</b>
+</p>
 
-## Project Directory.
+---
 
-```
-├── README.md # Documentation
-├── components.json # Component library configuration
-├── eslint.config.js # ESLint configuration
-├── index.html # Entry file
-├── package.json # Package management
-├── postcss.config.js # PostCSS configuration
-├── public # Static resources directory
-│   ├── favicon.png # Icon
-│   └── images # Image resources
-├── src # Source code directory
-│   ├── App.tsx # Entry file
-│   ├── components # Components directory
-│   ├── context # Context directory
-│   ├── db # Database configuration directory
-│   ├── hooks # Common hooks directory
-│   ├── index.css # Global styles
-│   ├── layout # Layout directory
-│   ├── lib # Utility library directory
-│   ├── main.tsx # Entry file
-│   ├── routes.tsx # Routing configuration
-│   ├── pages # Pages directory
-│   ├── services # Database interaction directory
-│   ├── types # Type definitions directory
-├── tsconfig.app.json # TypeScript frontend configuration file
-├── tsconfig.json # TypeScript configuration file
-├── tsconfig.node.json # TypeScript Node.js configuration file
-└── vite.config.ts # Vite configuration file
-```
+## 🔗 **Live Application**
+🎯 **URL:** https://medo.dev/projects/app-7ojboc8rchs1  
 
-## Tech Stack
+---
 
-Vite, TypeScript, React, Supabase
+<div align="center">
+  
+### 🌟 **Tech Badges**
+  
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+<img src="https://img.shields.io/badge/Vite-BB29FF?style=for-the-badge&logo=vite&logoColor=ffd92f" />
+<img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
 
-## Development Guidelines
+</div>
 
-### How to edit code locally?
+---
 
-You can choose [VSCode](https://code.visualstudio.com/Download) or any IDE you prefer. The only requirement is to have Node.js and npm installed.
+# 🎨 **Project Overview**
 
-### Environment Requirements
+Your **Miaoda Application** is designed with:
 
-```
-# Node.js ≥ 20
-# npm ≥ 10
-Example:
-# node -v   # v20.18.3
-# npm -v    # 10.8.2
-```
+✨ *Ultra-fast development (Vite)*  
+✨ *Type-safe programming (TypeScript)*  
+✨ *Component-driven UI (React)*  
+✨ *Cloud database & auth (Supabase)*  
 
-### Installing Node.js on Windows
+A perfect foundation for modern web apps 🚀
 
-```
-# Step 1: Visit the Node.js official website: https://nodejs.org/, click download. The website will automatically suggest a suitable version (32-bit or 64-bit) for your system.
-# Step 2: Run the installer: Double-click the downloaded installer to run it.
-# Step 3: Complete the installation: Follow the installation wizard to complete the process.
-# Step 4: Verify installation: Open Command Prompt (cmd) or your IDE terminal, and type `node -v` and `npm -v` to check if Node.js and npm are installed correctly.
-```
+---
 
-### Installing Node.js on macOS
+# 📁 **Project Directory Structure**
 
-```
-# Step 1: Using Homebrew (Recommended method): Open Terminal. Type the command `brew install node` and press Enter. If Homebrew is not installed, you need to install it first by running the following command in Terminal:
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-Alternatively, use the official installer: Visit the Node.js official website. Download the macOS .pkg installer. Open the downloaded .pkg file and follow the prompts to complete the installation.
-# Step 2: Verify installation: Open Command Prompt (cmd) or your IDE terminal, and type `node -v` and `npm -v` to check if Node.js and npm are installed correctly.
+```bash
+├── 📘 README.md                 # Project Documentation  
+├── 🧩 components.json           # Component Library Config
+├── 🧹 eslint.config.js          # ESLint Rules
+├── 🚪 index.html                # Entry HTML File
+├── 📦 package.json              # Scripts & Dependencies
+├── 🎨 postcss.config.js         # CSS Processing Config
+├── 🌐 public                    # Static Assets
+│   ├── 🔖 favicon.png           # Site Icon
+│   └── 🖼️ images                # Image Resources
+├── 🧠 src                       # Main Source Code
+│   ├── 🚀 App.tsx               # App Entry Component
+│   ├── 🧱 components            # Reusable Components
+│   ├── 🌍 context               # Global Context Providers
+│   ├── 🗄️ db                    # Database Config
+│   ├── 🪝 hooks                 # Custom Hooks
+│   ├── 🎨 index.css             # Global Stylesheet
+│   ├── 🧩 layout                # Layout Components
+│   ├── 🧰 lib                   # Utility Functions
+│   ├── 🚀 main.tsx              # Main Render File
+│   ├── 🛣️ routes.tsx            # App Routes
+│   ├── 📄 pages                 # Route Pages
+│   ├── 🔌 services              # API/DB Interaction
+│   ├── 🔠 types                 # TypeScript Types
+├── ⚙️ tsconfig.app.json         # TS Frontend Config
+├── ⚙️ tsconfig.json             # Base TS Config
+├── ⚙️ tsconfig.node.json        # TS for Node
+└── ⚡ vite.config.ts            # Vite Build Config
 ```
 
-### After installation, follow these steps:
+---
 
+# 🧑‍💻 **Development Setup**
+
+## 💻 Recommended Editor
+✨ **Visual Studio Code**  
+https://code.visualstudio.com/Download  
+
+---
+
+# ⚙️ **Environment Requirements**
+
+```bash
+Node.js ≥ 20  
+npm ≥ 10  
+
+Examples:
+node -v   # v20.18.3  
+npm -v    # 10.8.2
 ```
-# Step 1: Download the code package
-# Step 2: Extract the code package
-# Step 3: Open the code package with your IDE and navigate into the code directory
-# Step 4: In the IDE terminal, run the command to install dependencies: npm i
-# Step 5: In the IDE terminal, run the command to start the development server: npm run dev -- --host 127.0.0.1
-# Step 6: if step 5 failed, try this command to start the development server: npx vite --host 127.0.0.1
-```
 
-### How to develop backend services?
+---
 
-Configure environment variables and install relevant dependencies.If you need to use a database, please use the official version of Supabase.
+# 🪟 **Installing Node.js on Windows**
 
-## Learn More
+### ✔️ Step 1:  
+Visit 👉 https://nodejs.org/
 
-You can also check the help documentation: Download and Building the app（ [https://intl.cloud.baidu.com/en/doc/MIAODA/s/download-and-building-the-app-en](https://intl.cloud.baidu.com/en/doc/MIAODA/s/download-and-building-the-app-en)）to learn more detailed content.
+### ✔️ Step 2:  
+Run the installer (`.msi`) and follow the setup.
+
+---
+
+<div align="center">
+
+# 🎉 **You're All Set!**  
+
+🔥 Want a **Dark Theme**, **Galaxy Theme**, **Gradient Theme**,  
+or **Cyberpunk Neon README**?
+
+Just tell me — I’ll generate it instantly! 💜⚡  
+
+</div>
