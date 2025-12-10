@@ -20,7 +20,7 @@ export default function BookCatalog() {
   const loadBooks = async () => {
     try {
       setLoading(true);
-      const data = searchQuery 
+      const data = searchQuery
         ? await api.searchBooks(searchQuery)
         : await api.getAllBooks();
       setBooks(data);
@@ -28,7 +28,7 @@ export default function BookCatalog() {
       toast({
         title: "Error",
         description: "Failed to load books",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -45,25 +45,22 @@ export default function BookCatalog() {
     setBorrowingBook(bookId);
     try {
       const result = await api.borrowBook(bookId);
-      
+
       if (result.success) {
-        toast({
-          title: "Success",
-          description: result.message
-        });
+        toast({ title: "Success", description: result.message });
         await loadBooks();
       } else {
         toast({
           title: "Cannot Borrow",
           description: result.message,
-          variant: "destructive"
+          variant: "destructive",
         });
       }
     } catch (error) {
       toast({
         title: "Error",
         description: "Failed to borrow book",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setBorrowingBook(null);
@@ -83,10 +80,14 @@ export default function BookCatalog() {
   const getRoleLimit = () => {
     if (!profile) return 0;
     switch (profile.role) {
-      case 'student': return 3;
-      case 'teacher': return 5;
-      case 'staff': return 999;
-      default: return 0;
+      case 'student':
+        return 3;
+      case 'teacher':
+        return 5;
+      case 'staff':
+        return 999;
+      default:
+        return 0;
     }
   };
 
@@ -114,7 +115,6 @@ export default function BookCatalog() {
             </Card>
           )}
         </div>
-
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
