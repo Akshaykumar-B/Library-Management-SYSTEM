@@ -9,11 +9,6 @@
 </p>
 
 ---
-
-## 🔗 **Live Application**
-🎯 **URL:** https://medo.dev/projects/app-7ojboc8rchs1  
-
----
 # 🌟 Miaoda Project – Modern Web Application
 
 ## 🔗 Live Application
