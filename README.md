@@ -6,7 +6,7 @@ Miaoda Application Link URL
 
 ## Project Info
 
-## Project Directory
+## Project Directory.
 
 ```
 ├── README.md # Documentation
