@@ -14,105 +14,113 @@
 🎯 **URL:** https://medo.dev/projects/app-7ojboc8rchs1  
 
 ---
+# 🌟 Miaoda Project – Modern Web Application
 
-<div align="center">
-  
-### 🌟 **Tech Badges**
-  
-<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
-<img src="https://img.shields.io/badge/Vite-BB29FF?style=for-the-badge&logo=vite&logoColor=ffd92f" />
-<img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
-
-</div>
+## 🔗 Live Application
+https://medo.dev/projects/app-7ojboc8rchs1
 
 ---
 
-# 🎨 **Project Overview**
+## 📌 Project Overview
 
-Your **Miaoda Application** is designed with:
+The **Miaoda Application** is a modern full-stack web application built using:
 
-✨ *Ultra-fast development (Vite)*  
-✨ *Type-safe programming (TypeScript)*  
-✨ *Component-driven UI (React)*  
-✨ *Cloud database & auth (Supabase)*  
+- **React** – Component-based UI development  
+- **TypeScript** – Static typing for reliable and scalable code  
+- **Vite** – Ultra-fast development and build tool  
+- **Supabase** – Backend services including authentication and database  
 
-A perfect foundation for modern web apps 🚀
+This project is designed for **clean architecture, scalability, and high performance**.
 
 ---
 
-# 📁 **Project Directory Structure**
+## 📁 Project Directory Structure
 
 ```bash
-├── 📘 README.md                 # Project Documentation  
-├── 🧩 components.json           # Component Library Config
-├── 🧹 eslint.config.js          # ESLint Rules
-├── 🚪 index.html                # Entry HTML File
-├── 📦 package.json              # Scripts & Dependencies
-├── 🎨 postcss.config.js         # CSS Processing Config
-├── 🌐 public                    # Static Assets
-│   ├── 🔖 favicon.png           # Site Icon
-│   └── 🖼️ images                # Image Resources
-├── 🧠 src                       # Main Source Code
-│   ├── 🚀 App.tsx               # App Entry Component
-│   ├── 🧱 components            # Reusable Components
-│   ├── 🌍 context               # Global Context Providers
-│   ├── 🗄️ db                    # Database Config
-│   ├── 🪝 hooks                 # Custom Hooks
-│   ├── 🎨 index.css             # Global Stylesheet
-│   ├── 🧩 layout                # Layout Components
-│   ├── 🧰 lib                   # Utility Functions
-│   ├── 🚀 main.tsx              # Main Render File
-│   ├── 🛣️ routes.tsx            # App Routes
-│   ├── 📄 pages                 # Route Pages
-│   ├── 🔌 services              # API/DB Interaction
-│   ├── 🔠 types                 # TypeScript Types
-├── ⚙️ tsconfig.app.json         # TS Frontend Config
-├── ⚙️ tsconfig.json             # Base TS Config
-├── ⚙️ tsconfig.node.json        # TS for Node
-└── ⚡ vite.config.ts            # Vite Build Config
+├── README.md                 # Documentation  
+├── components.json           # Component library configuration
+├── eslint.config.js          # ESLint configuration
+├── index.html                # Entry HTML file
+├── package.json              # Project dependencies & scripts
+├── postcss.config.js         # CSS processing configuration
+├── public                    # Static assets
+│   ├── favicon.png
+│   └── images
+├── src                       # Application source code
+│   ├── App.tsx               # Main application component
+│   ├── components            # Reusable UI components
+│   ├── context               # Global context providers
+│   ├── db                    # Database configuration
+│   ├── hooks                 # Custom React hooks
+│   ├── index.css             # Global styles
+│   ├── layout                # Layout components
+│   ├── lib                   # Utility functions
+│   ├── main.tsx              # App initialization
+│   ├── routes.tsx            # Route configuration
+│   ├── pages                 # Application pages
+│   ├── services              # API and database interactions
+│   ├── types                 # TypeScript type definitions
+├── tsconfig.app.json         # TypeScript app configuration
+├── tsconfig.json             # Base TypeScript configuration
+├── tsconfig.node.json        # Node-specific TypeScript config
+└── vite.config.ts            # Vite configuration file
 ```
 
 ---
 
-# 🧑‍💻 **Development Setup**
+## 🧰 Technology Stack
 
-## 💻 Recommended Editor
-✨ **Visual Studio Code**  
-https://code.visualstudio.com/Download  
+| Technology   | Purpose |
+|--------------|---------|
+| **React**    | Frontend UI framework |
+| **TypeScript** | Type-safe JavaScript development |
+| **Vite**     | Development server & build tool |
+| **Supabase** | Backend, authentication, and database |
 
 ---
 
-# ⚙️ **Environment Requirements**
+## 🧑‍💻 Development Setup
 
-```bash
-Node.js ≥ 20  
-npm ≥ 10  
+### ✔️ Code Editing
+Use any IDE, but **Visual Studio Code** is recommended:  
+https://code.visualstudio.com/Download
+
+---
+
+## ⚙️ System Requirements
+
+```
+Node.js 20 or higher  
+npm 10 or higher
+```
 
 Examples:
-node -v   # v20.18.3  
-npm -v    # 10.8.2
+```
+node -v   → v20.18.3  
+npm -v    → 10.8.2
 ```
 
 ---
 
-# 🪟 **Installing Node.js on Windows**
+## 🪟 Installing Node.js on Windows
 
-### ✔️ Step 1:  
-Visit 👉 https://nodejs.org/
-
-### ✔️ Step 2:  
-Run the installer (`.msi`) and follow the setup.
+1. Visit the official website: https://nodejs.org/  
+2. Download the recommended version for your system (32-bit or 64-bit).  
+3. Run the installer (.msi) and complete the setup.
 
 ---
 
-<div align="center">
+## ✅ Summary
 
-# 🎉 **You're All Set!**  
+This project follows a **modern, modular, scalable architecture** using Vite, React, TypeScript, and Supabase.  
+It is suitable for production applications and academic evaluation.
 
-🔥 Want a **Dark Theme**, **Galaxy Theme**, **Gradient Theme**,  
-or **Cyberpunk Neon README**?
+---
 
-Just tell me — I’ll generate it instantly! 💜⚡  
+If you want, I can also prepare:
 
-</div>
+- A **presentation slide** version  
+- A **PDF report format**  
+- A **diagram-based architecture explanation**  
+
+Just tell me! 🚀
